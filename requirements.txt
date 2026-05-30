@@ -61,7 +61,7 @@ scikit-base
 scikit-learn
 scipy
 seaborn
-shap==0.51.0
+shap==0.48.0
 shellingham
 six
 slicer
