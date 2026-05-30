@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+
+venv/
+.env
+
+model.pkl
+label_encoder.pkl
+
+.streamlit/
+
+.ipynb_checkpoints/
