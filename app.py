@@ -6,22 +6,70 @@ import shap
 
 # PAGE CONFIG
 
-st.set_page_config(
-    page_title="Maize Yield Prediction",
-    layout="wide"
-)
+st.set_page_config(page_title="Maize Yield Prediction", page_icon="🌽", layout="wide")
 
+def set_bg():
+    st.markdown("""
+    <style>
+
+    /* Background image */
+    /* Background image */
+[data-testid="stAppViewContainer"] {
+    background: linear-gradient(
+        rgba(0, 0, 0, 0.55),
+        rgba(0, 0, 0, 0.55)
+    ),
+    url("https://images.pexels.com/photos/20234940/pexels-photo-20234940/free-photo-of-a-corn-field.jpeg");
+    
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+    /* Dark overlay for readability */
+    [data-testid="stAppViewContainer"] > .main {
+        background-color: rgba(0,0,0,0.55);
+    }
+
+    /* Glass container */
+    .glass {
+        background: rgba(0,0,0,0.65);
+        padding: 20px;
+        border-radius: 15px;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+        margin-bottom: 20px;
+    }
+
+    /* Text color fix */
+    h1, h2, h3, h4, p, label {
+        color: white !important;
+    }
+
+    /* Sidebar */
+    section[data-testid="stSidebar"] {
+        background: rgba(0,0,0,0.8);
+    }
+
+    /* Buttons */
+    .stButton>button {
+        background-color: #16a34a;
+        color: white;
+        border-radius: 10px;
+    }
+
+    </style>
+    """, unsafe_allow_html=True)
+
+set_bg()
 st.markdown("""
-<style>
-.main {
-    background-color: #f5f7fa;
-}
-h1 {
-    color: #2E8B57;
-}
-</style>
+<div class="glass">
+<h1 style='text-align:center;'>🌽 Smart Maize Yield Predictor</h1>
+<p style='text-align:center;'>AI-powered Agricultural Prediction System</p>
+</div>
 """, unsafe_allow_html=True)
-
 # LOAD MODEL
 
 model = joblib.load("model.pkl")
@@ -50,11 +98,12 @@ page = st.sidebar.radio(
 # HOME PAGE
 
 if page == "Home":
-
+    
     st.title("🌽 Maize Yield Prediction Under Rainfall Variability")
 
     st.markdown("""
-    ### Project Objective
+    <div class="glass">
+    
 
     Predict maize yield based on:
 
@@ -65,12 +114,18 @@ if page == "Home":
     - Area (Country)
 
     using Decision Tree Regression and Explainable AI.
-    """)
+    """, unsafe_allow_html=True)
+    
+    st.markdown("### 📊 System Status")
 
+    st.info("Model: Trained Random Forest / ML Model")
+    st.info("Status: Active ✅")
+   
 # DATASET PAGE
 
 elif page == "Dataset Overview":
 
+    
     st.title("📊 Dataset Overview")
 
     st.metric("Total Records", len(maize_df))
@@ -128,10 +183,11 @@ elif page == "Dataset Overview":
 
     st.dataframe(maize_df.head())
 
+  
 # PREDICTION PAGE
 
 elif page == "Prediction":
-
+    st.markdown('<div class="glass">', unsafe_allow_html=True)
     st.title("🔮 Predict Maize Yield")
 
     countries = sorted(maize_df["Area"].unique())
@@ -300,8 +356,10 @@ elif page == "Prediction":
 
         for rec in recommendations:
             st.write(rec)
-elif page == "Rainfall Analysis":
 
+    st.markdown('</div>', unsafe_allow_html=True)
+elif page == "Rainfall Analysis":
+    st.markdown('<div class="glass-container">', unsafe_allow_html=True)
     st.title("🌧 Rainfall Analysis")
 
     st.subheader("Rainfall vs Yield")
@@ -331,9 +389,9 @@ elif page == "Rainfall Analysis":
     ax2.set_ylabel("Yield")
 
     st.pyplot(fig2)
-
-
+    st.markdown('</div>', unsafe_allow_html=True)
 elif page == "Feature Importance":
+    st.markdown('<div class="glass-container">', unsafe_allow_html=True)
 
     st.title("📈 Feature Importance")
 
@@ -394,9 +452,11 @@ elif page == "SHAP Explainability":
     )
 
     st.pyplot(plt.gcf())
+    st.markdown('</div>', unsafe_allow_html=True)
 # PERFORMANCE PAGE
 
 elif page == "Model Performance":
+    st.markdown('<div class="glass-container">', unsafe_allow_html=True)
 
     st.title("📈 Model Performance")
 
@@ -408,3 +468,12 @@ elif page == "Model Performance":
     st.success(
         "Model explains approximately 93.64% of yield variation."
     )  
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    st.markdown("""
+<hr style="border:1px solid #444;">
+<p style='text-align:center; color:gray;'>
+🌽 Smart Agriculture AI Project | Built using Streamlit<br>
+© 2026 All Rights Reserved
+</p>
+""", unsafe_allow_html=True)
